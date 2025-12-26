@@ -16,8 +16,13 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-var matchMethod = flag.String("testify.m", "", "regular expression to select tests of the testify suite to run")
-var repeatItem = flag.Uint("testify.c", 1, "used to repeat each test multiple times without rerunning Setup/TearDownSuite")
+var matchMethod = flag.String("suite.m", "", "regular expression to select tests of the testify suite to run")
+var repeatItem = flag.Uint("suite.c", 1, "used to repeat each test multiple times without rerunning Setup/TearDownSuite")
+
+func init() {
+	// backward compatibility
+	flag.StringVar(matchMethod, "testify.m", "", "alias for suite.m")
+}
 
 // Suite is a basic testing suite with methods for storing and
 // retrieving the current *testing.T context.
